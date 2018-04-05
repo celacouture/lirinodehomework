@@ -1,5 +1,5 @@
 
-require("dotenv").config();
+require("dotenv").config('./env');
 let keys = require('./keys');
 let request = require('request-promise');
 // let spotify = new Spotify(keys.spotify);
@@ -26,7 +26,7 @@ switch(command){
     break;
 
     case 'do-what-it-says':
-        doit();
+        dowhatit();
     break;
 
     default:
@@ -38,9 +38,11 @@ function twitter(){
   client.get('statuses/user_timeline', params, function(error, tweets, response) {
     if (!error) {
   				for (var i = 0; i < tweets.length; i++) {
-  					console.log(tweets[i].text);
-  				}
-  			} else {
+  					console.log(`
+              Tweet: ${tweets[i].text}
+              ================`);
+  			}
+      }else {
   				console.log(error);
   			}
 });
@@ -123,7 +125,7 @@ function movie(){
 
 
 //do-what-it-says
-function doit(){
+function dowhatit(){
   fs.readFile("random.txt", "utf-8", function(error, data) {
 			if (!error) {
         console.log("Your movie is loading...")
