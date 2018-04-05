@@ -10,7 +10,7 @@ let client = new Twitter(keys.twitter);
 let params = {screen_name: 'callia1082'};
 //command variables
 let command=process.argv[2];
-let argument=process.argv.slice(3);
+let argument=process.argv.slice(3).join(" ");
 
 switch(command){
     case 'my-tweets':
@@ -34,26 +34,48 @@ switch(command){
 }
 
 //my-tweets, talk to twitter get back 20 tweets print to console
-// function twitter(){
-//   client.get('statuses/user_timeline', params, function(error, tweets) {
-//     //if error, log it, else log the tweets
-//     if (error) {
-//       console.log(error);
-//     }
-//     else {
-//       // for loop to run through the length of my account's tweets
-//       console.log("\n/////////////////TWEET ME////////////////\n");
-//       for(i=0; i< tweets.length; i++){
-//         // adds a number and dot before to show order
-//         console.log((i+1) + ". " + tweets[i].text);
-//       }
-//     }
-//   });
-// }
+function twitter(){
+  client.get('statuses/user_timeline', params, function(error, tweets, response) {
+    if (!error) {
+  				for (var i = 0; i < tweets.length; i++) {
+  					console.log(tweets[i].text);
+  				}
+  			} else {
+  				console.log(error);
+  			}
+});
+}
 // twitter();
 //spotify-this-song
 
-//movie-this
+// // function music(){
+//   if (!argument) {
+// 			spotify.search({ type: 'track', query: 'The Sign' }, function(err, data) {
+// 				if (err) {
+// 					return console.log('Error occurred: ' + err);
+// 				}
+// 				console.log("This song is from the artist(s): " + data.tracks.items[8].artists[0].name);
+// 				console.log("This song's name is: " + data.tracks.items[8].name);
+// 				console.log("Preview url for this track: " + data.tracks.items[8].preview_url);
+// 				console.log("This song is from the album: " + data.tracks.items[8].album.name);
+// 			});
+// 		} else {
+// 			// user's song choice, or from random.txt
+// 			spotify.search({ type: 'track', query: argument }, function(err, data) {
+// 				if (err) {
+// 					return console.log('Error occurred: ' + err);
+// 				}
+// 				console.log("This song is from the artist(s): " + data.tracks.items[0].artists[0].name);
+// 				console.log("This song's name is: " + data.tracks.items[0].name);
+// 				console.log("Preview url for this track: " + data.tracks.items[0].preview_url);
+// 				console.log("This song is from the album: " + data.tracks.items[0].album.name);
+// 			});
+// 		}
+
+
+// }
+
+
 function movie(){
   let noMovie='Mr Nobody';
   if(!argument){
@@ -101,3 +123,19 @@ function movie(){
 
 
 //do-what-it-says
+function doit(){
+  fs.readFile("random.txt", "utf-8", function(error, data) {
+			if (!error) {
+        console.log("Your movie is loading...")
+        let random = data.split(",");
+			command = random[0];
+			argument = random[1];
+			movie();
+
+			}else{
+        console.log('There was an error in your request');
+      }
+
+
+});
+};

@@ -64,3 +64,29 @@ switch(command){
     default:
     break;
 }
+spotify.search({type: 'track', query: value || 'ace of base the sign'}, function(err, data) {
+  if (err) {
+      console.log('Error occurred: ' + err);
+      return;
+  }
+  else {
+  //console.log("/////////Data////////")
+  //console.log(data);
+  //console.log("///////Data.tracks.items///////")
+  var spotifyCall = data.tracks.items[0];
+  //console.log(spotifyCall);
+  //console.log("/////////spotifyCall.artists[0].name////////");
+
+// if no error, show me the information from the API
+  console.log("\n/////////////////SPOTIFY THIS////////////////\n");
+  var artist = spotifyCall.artists[0].name;
+  console.log("Artist: " + artist);
+  var song = spotifyCall.name;
+  console.log("Song name: " + song);
+  var preview = spotifyCall.preview_url;
+  console.log("Preview Link: " + preview);
+  var album = spotifyCall.album.name;
+  console.log("Album: " + album);
+
+}
+});
