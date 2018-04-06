@@ -39,6 +39,7 @@ function twitter(){
     if (!error) {
   				for (var i = 0; i < tweets.length; i++) {
   					console.log(`
+              Date: ${tweets[i].created_at},
               Tweet: ${tweets[i].text}
               ================`);
   			}
